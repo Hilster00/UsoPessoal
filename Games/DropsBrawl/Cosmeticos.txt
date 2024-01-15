@@ -1,0 +1,20 @@
+data|data_modificacao|tipo|raridade
+10/08/2023|14/55/2024|Skin|Épico
+13/10/2023|14/55/2024|Skin|Épico
+14/10/2023|14/55/2024|Skin|Super Raro
+26/10/2023|14/55/2024|Skin|Raro
+13/11/2023|14/55/2024|Skin|Raro
+16/11/2023|14/55/2024|Skin|Raro
+20/11/2023|14/55/2024|Skin|Raro
+27/11/2023|14/55/2024|Skin|Raro
+01/12/2023|14/55/2024|Skin|Raro
+05/12/2023|14/55/2024|Skin|Épico
+07/12/2023|14/55/2024|Skin|Raro
+07/12/2023|14/55/2024|Skin|Super Raro
+08/12/2023|14/55/2024|Skin|Super Raro
+18/12/2023|14/55/2024|Skin|Raro
+18/12/2023|14/55/2024|Skin|Raro
+25/12/2023|14/55/2024|Skin|Super Raro
+04/01/2024|14/55/2024|Skin|Super Raro
+05/01/2024|14/55/2024|Skin|Raro
+13/01/2024|14/55/2024|Skin|Super Raro

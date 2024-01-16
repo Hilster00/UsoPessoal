@@ -18,3 +18,4 @@ data|data_modificacao|tipo|raridade
 04/01/2024|14/55/2024|Skin|Super Raro
 05/01/2024|14/55/2024|Skin|Raro
 13/01/2024|14/55/2024|Skin|Super Raro
+15/01/2024|15/09/2024|Spray|

@@ -1,5 +1,6 @@
 # OperacoesMatematicas
-Este repositório contem várias funções matemáticas que implementei ao longo de minha graduação. 
+
+Este repositório contém várias funções que desenvolvi em alguns projetos e que podem ser reutilizadas em outros lugares.
 
 ## Códigos Disponíveis
 
@@ -7,78 +8,37 @@ Este repositório contem várias funções matemáticas que implementei ao longo
 
 ## Códigos:
 
-- [Operações básicas com matrizes](Matriz)
-- [Operações básicas com números Primos](Primos)
-- [Calculadora de Derivada](CalculadoraDerivada.py)
-- [Números Complexos](Complexos.py)
-- [Fatorail](Fatorial.py)
-- [Fatorial com Memoizacao](Fatorial_Memoizacao.py)
-- [Cálculo de Fibonacci](Fibonacci.py)
-- [Encontrar Menor ou Maior Valor](MenorMaiorValor.py)
-- [Números de Diferentes Bases](Numeros.py)
-- [Operações de Conjuntos](OperacoesConjuntos.py)
-- [Triângulo de pascal](Pascal.py)
-- [Cálculo de Seno e Cosseno](SenCos.py)
-- [Simplificador de frações](SimplificadorFracoes.py)
-  
-
-  
-
+- [Cria uma base de dados para facilitar a manipulação e exportação para o Pandas](BaseDados.py)
+- [Verifica se a string está balanceada corretamente](Bracked.py)
+- [Cria um iterador capaz de iterar entre números e letras](IteradorLetras.py)
+- [Limpa a tela de acordo com o SO](LimparTela.py)
+- [Valida a entrada do usuário para o topo correto](Validacao.py)
+- [Formata de forma adequada strings de acordo com os separadores](separador.py)
 
 ---
 
-## Operações básicas com matrizes <a name="Matriz"></a>
+## Base de dados <a name="BaseDados.py"></a>
 
-Este repositório contém códigos Python para realizar diversas operações de matrizes.
+Este código implementa algumas funções para facilitar a manipulação de base de dados, tornando mais fácil até mesmo a conversão para DataFrames.
 
-## Operações básicas com números Primos <a name="Primos"></a>
+## Bracked <a name="Bracked.py"></a>
 
-Este repositório abriga códigos Python relacionados a números primos. Você encontrará funções para verificar se um número é o produto de dois primos, gerar os primeiros números primos, bem como calcular o produto de dois primos com um número específico de dígitos.
+Este código fornece uma forma simples de verificar se alguma string está com seus parênteses e outros separadores balanceados corretamente.
 
-## Calculadora de Derivada <a name="CalculadoraDerivada.py"></a>
+## Iterador <a name="IteradorLetras.py"></a>
 
-Calcula a derivada de forma simples, com isso não permite expressões muito elaboradas.
+Cria um iterador de acordo com as necessidades, sendo útil para a criação de IDs e senhas.
 
-## Números Complexos <a name="Complexos.py"></a>
+## Limpador de Tela <a name="LimparTela.py"></a>
 
-Calculadora simples que faz potência de 2 e raíz quadrada, e caso o radicando da raiz seja negativa, o cálculo é realizado para resultar em um número complexo. 
+Código simples para programas que rodam no terminal, facilitando o comando de limpar a tela de acordo com o SO.
 
-## Fatorail <a name="Fatorial.py"></a>
+## Validação de Entrada <a name="Validacao.py"></a>
 
-Este código Python fornece uma função simples para calcular o fatorial de um número inteiro positivo n. Basta chamar fat(n) para obter o fatorial desejado.
+Este código Python fornece uma função simples para validar a entrada do usuário, evitando erros de tipagem incorreta, com mensagens de erro personalizadas.
 
-## Fatorial com Memoizacao <a name="Fatorial_Memoizacao.py"></a>
+## Separador <a name="separador.py"></a>
 
-Este código Python implementa uma função para calcular o fatorial de um número inteiro positivo n. Ele utiliza uma técnica de memoização para armazenar os fatoriais já calculados e otimizar o processo de cálculo. Se o fatorial de um número já foi calculado anteriormente, ele é recuperado diretamente da lista f, economizando tempo de cálculo.
-
-## Cálculo de Fibonacci <a name="Fibonacci.py"></a>
-
-Este código Python calcula o n-ésimo número na sequência de Fibonacci de forma iterativa. Ele usa uma abordagem que mantém os dois números anteriores na sequência para calcular o próximo número.
-
-## Encontrar Menor ou Maior Valor <a name="MenorMaiorValor.py"></a>
-
-Este código implementa funções para encontrar o menor e o maior valor em um vetor usando uma abordagem de divisão e conquista. 
-
-## Números de Diferentes Bases <a name="Numeros.py"></a>
-
-Este código implementa uma classe chamada numero que permite representar números em várias bases e realizar conversões entre elas. Você pode criar instâncias dessa classe, definir valores e bases, e converter entre bases diferentes.
-
-## Operações de Conjuntos <a name="OperacoesConjuntos.py"></a>
-
-Este código Python demonstra a execução de operações de conjunto (união, interseção e diferença) em duas listas. As listas são convertidas em conjuntos para realizar as operações, e os resultados são impressos. É útil para entender como realizar operações de conjunto em coleções de elementos.
-
-## Triângulo de pascal <a name="Pascal.py"></a>
-
-Este código Python gera a linha n do Triângulo de Pascal, um padrão triangular de números inteiros. O usuário é solicitado a inserir o número da linha desejada, e a linha correspondente é impressa
-
-## Cálculo de Seno e Cosseno <a name="SenCos.py"></a>
-
-Este código Python implementa funções cos e sen para calcular o cosseno e o seno de um número usando séries de Taylor. O fatorial é pré-calculado para otimizar o desempenho. 
-
-## Simplificador de frações <a name="SimplificadorFracoes.py"></a>
-
-Este código Python importa frações de um arquivo e, calcula o mdc entre o numerador e denominador, para achar o máximo divisor comum entre eles para efetuar a simplificação, e então salva as frações simplificadas em um novo arquivo.
+Este código formata adequadamente uma string para o formato de saída desejado, conforme separadores e delimitadores, como transformar 1000.00 de float para 1.000,00 no formato de Real Brasileiro.
 
 --
-
-

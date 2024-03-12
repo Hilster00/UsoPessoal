@@ -1,10 +1,10 @@
 
 class memoria:
-    def __init__(self,tamanho=0,nome=""):
+    def __init__(self,tamanho=0,nome="Memoria Qualquer"):
         self.__tamanho=tamanho
         self.__espaco_livre=tamanho
         self.__dados={}
-        self.__nome=f"{nome}" if nome!= "" else None
+        self.__nome=f"{nome}"
         
     @property
     def tamanho(self):
@@ -41,9 +41,7 @@ class memoria:
 
         
     def __str__(self):
-        retorno=""
-        if self.__nome!=None:
-            retorno+=f"{self.__nome}\n"
+        retorno=f"{self.__nome}\n"
         retorno+=f"Capacidade:{self.__tamanho}\n"
         retorno+=f"Espaço Livre:{self.__tamanho}\n"
         for item,tamanho in self.__dados.items():
@@ -51,9 +49,7 @@ class memoria:
         return retorno
         
     def item(self,nome):
-        retorno=""
-        if self.__nome!=None:
-            retorno+=f"{self.__nome}\n"
+        retorno=f"{self.__nome}\n"
         if self.__dados.get(item)!=None:
             retorno+=f"{item} ocupa {self.__dados['item']}\n"
         else:
@@ -67,10 +63,18 @@ class memoria:
         self.__dados={}
         self.__espaco_livre=tamanho
         
-    
+    def __getitem__(self, chave):
+        retorno=""
+        if self.__dados.get(chave)!=None:
+            retorno+=f"Item {chave} ocupa {self.__dados[chave]}"
+        else:
+            retorno+=f"NULL ocupa 00\n"
+        return retorno
+        
+        
 class Memorias:
     def __init__(self, **kwargs):
-        self.__nome="Memoria"
+        self.__nome="Teste do Hilster"
         if kwargs.get('nome') != None:
             self.__nome=f"{kwargs.get('nome')}"
             
@@ -152,13 +156,9 @@ class Memorias:
                 retorno+=f"{self.__nome}\n"
             retorno+=str(memoria)
             return retorno
-    def __getitem__(self, memora):
-        retorno=""
-        if self.__nome!=None:
-            retorno+=f"{self.__nome}\n"
-        if self.__nomes_memorias.get(memoria)!=None:
-            retorno+=f"Nome:"+str(self.__nomes_memorias[memoria])
-        return retorno
+    def __getitem__(self, chave):
+        if self.__nomes_memorias.get(chave)!=None:
+            return self.__nomes_memorias[chave]
         
     def limpar(self):
         self.__item_memoria=[]
@@ -169,18 +169,21 @@ class Memorias:
 
     def reorganizar(self):
         itens=[]
-        for item,memoria in self.__item_memoria.items():
-            item=[item,memoria.item_tamanho(item)]
+        for item,m in self.__item_memoria.items():
+            item=[item,m.item_tamanho(item)]
             itens.append(item)
         itens=sorted(itens,key=lambda i: i[1])
         self.limpar
         for item in itens:
-            self.adicionar(item)
+            self.adicionar_item(item)
             
-        
-a=Memorias(memorias=[{'nome':"Interna",'capacidade':64},{'nome':"Micro SD",'capacidade':128}])
-a.adicionar_item(['Jogo 1', 12],1)
-print(a)
-#a.reorganizar()
-print(a)
-print(a["Micro SD"])
+   
+if __name__=="__main__":     
+    teste=Memorias(nome='Memoria Qualquer',memorias=[{'nome':"Interna",'capacidade':64},
+    {'nome':"Micro SD",'capacidade':128}])
+    teste.adicionar_item(['Jogo 1', 12],1)
+    print(teste)
+    teste.reorganizar()
+    print(teste)
+    print(teste["Micro SD"])
+    print(teste["Micro SD"][0])

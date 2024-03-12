@@ -11,7 +11,7 @@ class memoria:
         return self.__tamanho
     @tamanho.setter
     def tamanho(self,tamanho):
-        if type(tamanho) not in tamanho[int, float]:
+        if type(tamanho) not in [int, float]:
             tamanho=0
         self.__tamanho=tamanho
     @property
@@ -37,7 +37,7 @@ class memoria:
     def remover(self,item):
         if self.__dados.get(item) != None:
             self.__ocupar_memoria(-1*self.__dados[item])
-            self.pop(item)
+            self.__dados.pop(item)
 
         
     def __str__(self):
@@ -50,8 +50,8 @@ class memoria:
         
     def item(self,nome):
         retorno=f"{self.__nome}\n"
-        if self.__dados.get(item)!=None:
-            retorno+=f"{item} ocupa {self.__dados['item']}\n"
+        if self.__dados.get(nome)!=None:
+            retorno+=f"{nome} ocupa {self.__dados[nome]}\n"
         else:
             retorno+=f"NULL ocupa 00\n"
         return retorno
@@ -61,7 +61,7 @@ class memoria:
         
     def limpar(self):
         self.__dados={}
-        self.__espaco_livre=tamanho
+        self.__espaco_livre=self.tamanho
         
     def __getitem__(self, chave):
         retorno=""
@@ -161,9 +161,7 @@ class Memorias:
             return self.__nomes_memorias[chave]
         
     def limpar(self):
-        self.__item_memoria=[]
-        for memoria in self.__memorias:
-            memoria.limpar
+        self.__item_memoria={}
         for i in range(self.__n_memorias):
             self.__nomes_memorias[i].limpar
 

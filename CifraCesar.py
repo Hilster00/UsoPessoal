@@ -30,3 +30,33 @@ mensagem_cifrada = "L ORYH L SURJUDPPH"
 deslocamento = 3
 print(decifrar_cifra_cesar(mensagem_cifrada, deslocamento))
 # Saída esperada: I LOVE I PYTHON
+
+def codificar_cezar(string,cifra=1):
+    caracteres = [chr(i) for i in range(ord("A"),ord("Z")+1)]
+    caracteres+= [chr(i) for i in range(ord("a"),ord("z")+1)]
+    caracteres+= [str(i) for i in range(10)]
+    outros = "@#$%&*/|?;"
+    r = ""
+    for c in string:
+        if c in caracteres:
+            r+=caracteres[(caracteres.index(c)+cifra)%62]
+        else:
+            r+=outros[ord(c)%10]
+            
+    return r
+def decifrar_cezar(string, cifra=1):
+    caracteres = [chr(i) for i in range(ord("A"),ord("Z")+1)]
+    caracteres+= [chr(i) for i in range(ord("a"),ord("z")+1)]
+    caracteres+= [str(i) for i in range(10)]
+    outros = "@#$%&*/|?;"
+    r = ""
+    for c in string:
+        if c in caracteres:
+            r+=caracteres[(caracteres.index(c)-cifra)%62]
+        else:
+            r+=c
+    return r
+    
+print(codificar_cezar("Ola Mundo"))
+print(decifrar_cezar(codificar_cezar("Ola Mundo")))
+

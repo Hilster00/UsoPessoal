@@ -1,0 +1,122 @@
+#Abrir MongoDB
+cd "c:\Program Files\MongoDB\Server\4.0\bin\"
+mongo
+
+#Usar DataBase
+use MyDataBase
+
+#inserir dados
+
+db.posts.insert(dict)#um registros por vez
+
+ou
+
+db.posts.insert([dict,dict,dict])#n registros por vez
+
+#dict:É igual ao dict do python
+#o _id será definido se não for especificado
+
+
+#visualizar dados
+#ver todos os registros
+db.posts.find()
+
+#ver todos registros separados
+db.posts.find().pretty()
+
+#apenas um registro
+db.posts.findOne()
+
+#retorna todos registros cuja idade seja igual a 23
+db.posts.find({idade:23})
+
+#retorna todos registros cuja idade seja igual a 23 e o nome seja Theo.
+db.posts.find({idade:23, nome:"Theo"})
+
+# Retorna todos os registros cuja idade seja maior que 23
+db.posts.find({idade: {$gt: 23}})
+
+# Retorna todos os registros cuja idade seja menor que 30
+db.posts.find({idade: {$lt: 30}})
+
+# Retorna todos os registros cuja idade seja igual a 25
+db.posts.find({idade: {$eq: 25}})
+
+# Retorna todos os registros cuja idade seja diferente de 30
+db.posts.find({idade: {$ne: 30}})
+
+# Retorna todos os registros cuja idade seja maior ou igual a 25
+db.posts.find({idade: {$gte: 25}})
+
+# Retorna todos os registros cuja idade seja menor ou igual a 30
+db.posts.find({idade: {$lte: 30}})
+
+# Retorna todos os registros cuja idade seja igual a 22 anos ou igual a 24 anos
+db.posts.find({$or: [{idade: 22}, {idade: 24}]})
+
+# Retorna todos registros cuja idade seja 23 e sexo seja M
+db.posts.find({$and: [{idade:23}, {sexo:"M"}]})
+
+# Retorna todos os registros cuja idade seja 22 e os nomes sejam Talida ou Hilster
+db.posts.find({$and: [{idade: 22}, {$or: [{nome: "Talida"}, {nome: "Hilster"}]}]})
+
+# Retorna todos os registros ordenados em ordem crescente pelo nome
+db.posts.find().sort({nome: 1})
+
+# Retorna todos os registros ordenados em ordem decrescente pelo nome
+db.posts.find().sort({nome: -1})
+
+# Retorna todos registros limitado aos 'n' primeiros
+db.posts.find().limit(n)
+
+# Atualiza apenas o primeiro documento que corresponde ao filtro
+db.posts.updateOne(
+    { nome: "Talida" },  // Filtro para encontrar o documento a ser atualizado
+    { $set: { idade: 25 } }  // As atualizações a serem aplicadas, usando $set para definir o novo valor
+)
+
+# Atualiza todos os documentos que correspondem ao filtro
+db.posts.updateMany(
+    { nome: "Hilster" },  // Filtro para encontrar os documentos a serem atualizados
+    { $set: { idade: 26 } }  // As atualizações a serem aplicadas, usando $set para definir o novo valor
+)
+
+
+
+# Exclui apenas o primeiro documento que corresponde ao filtro
+db.posts.deleteOne({ nome: "Talida" })
+
+# Exclui todos os documentos que correspondem ao filtro
+db.posts.deleteMany({ nome: "Hilster" })
+
+
+---   Antes do 4.2   ---
+
+# Atualiza apenas o primeiro documento que corresponde ao filtro
+db.posts.update(
+    { nome: "Talida" },  // Filtro para encontrar o documento a ser atualizado
+    { $set: { idade: 25 } }  // As atualizações a serem aplicadas, usando $set para definir o novo valor
+)
+
+# Atualiza todos os documentos que correspondem ao filtro
+db.posts.update(
+    { nome: "Hilster" },  // Filtro para encontrar os documentos a serem atualizados
+    { $set: { idade: 26 } },  // As atualizações a serem aplicadas, usando $set para definir o novo valor
+    { multi: true }  // Opção para atualizar vários documentos
+)
+
+# Exclui apenas o primeiro documento que corresponde ao filtro
+db.posts.delete({ nome: "Talida" })
+
+# Exclui todos os documentos que correspondem ao filtro
+db.posts.delete({ nome: "Hilster" }, { multi: true })
+
+
+#importar dados
+mongoimport --db NomeDoBanco --collection NomeDaColecao --file caminho/para/arquivo.json
+
+
+#exportar
+mongoexport --db NomeDoBanco --collection NomeDaColecao --out caminho/para/saida.json
+
+

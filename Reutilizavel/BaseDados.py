@@ -30,7 +30,17 @@ class BaseDados:
     def linhas(self):
         """Retorna a quantidade de linhas na base de dados."""
         return self.__quantidade_linhas
-
+        
+    @property
+    def quantidade_linhas(self):
+        """Retorna a quantidade de linhas na base de dados."""
+        return self.__quantidade_linhas
+        
+    @property
+    def quantidade_colunas(self):
+        """Retorna a quantidade de colunas na base da dados."""
+        return self.__quantidade_colunas
+        
     @property
     def dados(self):
         """Retorna os dados da base."""
@@ -42,7 +52,19 @@ class BaseDados:
         return (self.__quantidade_colunas, self.__quantidade_linhas)
 
     # Métodos
+    
+    def renomear_coluna(self,nome_antigo,novo_nome):
+        if type(novo_nome) != str:
+            raise ValueError(f"O type do novo nome tem que ser str.")
+        if type(nome_antigo) != str:
+            raise ValueError(f"O type do nome antigo tem que ser str.")
 
+        if nome_antigo.lower() not in self.colunas:
+            raise ValueError(f"{nome_antigo} não está na lista de colunas.")
+        
+        self.dados[novo_nome.lower()]=self.dados[nome_antigo.lower()]
+        self.dados.pop(nome_antigo.lower())
+        self.__colunas[self.__colunas.index(nome_antigo)]=novo_nome
     def remover_coluna(self, chave):
         """
         Remove uma coluna da base de dados.
@@ -53,10 +75,10 @@ class BaseDados:
         Raises:
             ValueError: Se a coluna não estiver cadastrada.
         """
-        if chave in self.colunas:
-            self.__dados.pop(chave)
+        if chave.lower() in self.colunas:
+            self.__dados.pop(chave.lower())
             self.__quantidade_colunas -= 1
-            self.__colunas.remove(chave)
+            self.__colunas.remove(chave.lower())
         else:
             raise ValueError(f"Coluna {chave} não está cadastrada")
 
@@ -177,7 +199,7 @@ class BaseDados:
                     self.__dados[f'{chave}'.lower()].append(valor)
                 #adiciona os novos valores na coluna
                 else:
-                    self.__dados[f'{chave}'.lower()] = self.__dados[f'{chave}'.lower()] + valor
+                    self.__dados[f'{chave}'.lower()].extend((valor:=[valor] if type(valor) != list else valor))
                     #atualiza a quantidade de linhas adicionadas
                     if linhas_adicionadas < len(valor):
                         linhas_adicionadas = len(valor)
@@ -307,5 +329,7 @@ if __name__ == '__main__':
     print(dados4)
     print(dados5)
     dados4.dados=dados6
+    print(dados4)
+    dados4.renomear_coluna('sexo','s')
     print(dados4)
     

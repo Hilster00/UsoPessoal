@@ -65,6 +65,7 @@ class BaseDados:
         self.dados[novo_nome.lower()]=self.dados[nome_antigo.lower()]
         self.dados.pop(nome_antigo.lower())
         self.__colunas[self.__colunas.index(nome_antigo)]=novo_nome
+        
     def remover_coluna(self, chave):
         """
         Remove uma coluna da base de dados.
@@ -110,9 +111,18 @@ class BaseDados:
         return iter(self.dados.items())
 
     def __add__(self, outro):
+        
+        #verificação se é da classe self
+        if isinstance(outro, BaseDados):
+            #pega os dados
+            outro = outro.dados
+        #cria um novo objeto, para não adicionar os novos dados em nenhum dos objetos existentes    
+        outro = BaseDados(outro)
+        
         #utiliza o seter para adicionar os novos dados
-        self.dados=outro
-        return self
+        outro.dados=self
+        
+        return outro
 
     def __getitem__(self, indice):
 
@@ -182,7 +192,7 @@ class BaseDados:
             ValueError: Se os dados não pertencerem ao tipo BaseDados ou dict.
         """
         if isinstance(dados, BaseDados):
-            dados = {coluna: dados.dados[coluna] for coluna in dados.colunas}
+            dados = dados.dados
 
         if type(dados) == dict and dados != {}:
             linhas_adicionadas = 1#contagem de novas linhas
@@ -210,7 +220,8 @@ class BaseDados:
             #correção da quantidade de linhas em todas colunas
             for chave, valor in self.__dados.items():
                 if (q:=len(valor)) != self.__quantidade_linhas:
-                    self.__dados[chave].extend([None for i in range(q)])
+                    self.__dados[chave].extend([None for i in range(self.__quantidade_linhas-q)])
+                    
         else:
             m = 'Dict vazio' if dados == {} else f"{dados} Não pertence ao tipo Dict"
             raise ValueError(m)

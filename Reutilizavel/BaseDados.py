@@ -314,7 +314,12 @@ if __name__ == '__main__':
     dados1 = BaseDados({"nome": 'Hilster', 'IDAde': 23})
     dados1.dados = {'nome': 'Jader', 'IDAde': 22}
     dados2 = BaseDados({"Nome": "Carlos", "idade": 51})
+    print(dados1)
+    print(dados2)
     dados3 = dados1 + dados2
+    print(dados1)
+    print(dados2)
+    print(dados3)
     dados4 = BaseDados({"Nome": ["Talia","Yasmin"], "idade": [22,23],"sexo":["F","F"]})
     dados5 = dados3 + dados4
     dados6=BaseDados({"Nome": ["Paloma","Gabrielly"], "idade": [23,24]})
@@ -343,4 +348,4 @@ if __name__ == '__main__':
     print(dados4)
     dados4.renomear_coluna('sexo','s')
     print(dados4)
-    
+

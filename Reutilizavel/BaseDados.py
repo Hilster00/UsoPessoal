@@ -8,7 +8,6 @@ class BaseDados:
     def __init__(self, dados={}):
         """
         Inicializa a BaseDados.
-
         Args:
             dados (dict): Dados iniciais para a base de dados (padrão é {}).
         """
@@ -46,26 +45,23 @@ class BaseDados:
     def remover_coluna(self, chave):
         """
         Remove uma coluna da base de dados.
-
         Args:
             chave (str): A chave da coluna a ser removida.
-
         Raises:
             ValueError: Se a coluna não estiver cadastrada.
         """
-        if self.dados.get(chave) is not None:
+        if chave in self.colunas:
             self.__dados.pop(chave)
             self.__quantidade_colunas -= 1
+            self.__colunas.remove(chave)
         else:
             raise ValueError(f"Coluna {chave} não está cadastrada")
 
     def remover_linha(self, i):
         """
         Remove uma linha da base de dados.
-
         Args:
             i (int): O índice da linha a ser removida.
-
         Raises:
             ValueError: Se a linha não estiver cadastrada.
         """
@@ -79,8 +75,8 @@ class BaseDados:
     # Métodos Especiais
 
     def __len__(self):
-        """Retorna a quantidade de colunas na base de dados."""
-        return self.__quantidade_colunas
+        """Retorna a quantidade de linhas na base de dados."""
+        return self.__quantidade_linhas
 
     def __iter__(self):
         """Retorna um iterador para os itens da base de dados."""
@@ -89,10 +85,8 @@ class BaseDados:
     def __add__(self, outro):
         """
         Adiciona duas bases de dados.
-
         Args:
             outro (BaseDados, dict): Outra base de dados ou um dicionário de dados.
-
         Returns:
             BaseDados: Uma nova base de dados resultante da adição.
         """
@@ -109,10 +103,8 @@ class BaseDados:
     def __getitem__(self, indice):
         """
         Obtém um item da base de dados.
-
         Args:
             indice (int, str, list): O índice, a chave ou a lista de chaves a serem obtidas.
-
         Returns:
             list, dict: Uma lista de valores ou um dicionário de valores, dependendo do tipo do índice.
         """
@@ -136,42 +128,85 @@ class BaseDados:
     def dados(self, dados):
         """
         Define os dados da base de dados.
-
         Args:
             dados (BaseDados, dict): Os dados a serem definidos na base. Pode ser outra BaseDados ou um dicionário.
-
         Raises:
             ValueError: Se os dados não pertencerem ao tipo BaseDados ou dict.
         """
         if isinstance(dados, BaseDados):
-            for i in range(outro.linhas):
-                temp = {chave: outro.dados[chave][i] for chave in outro.colunas}
-                self.dados = temp
+            for i in range(dados.linhas):
+                temp = {chave: dados.dados[chave][i] for chave in dados.colunas}
+                dados = temp
 
         if type(dados) == dict and dados != {}:
-            linhas_adicionadas = 1
+            linhas_adicionadas = 1#contagem de novas linhas
 
+            #loop para adicionar os valores de cada coluna aos dados
             for chave, valor in dados.items():
+                #cria nova coluna
                 if f'{chave}'.lower() not in self.__colunas:
                     self.__dados[f'{chave}'.lower()] = [None for i in range(self.__quantidade_linhas)]
                     self.__colunas.append(f'{chave}'.lower())
                     self.__quantidade_colunas += 1
-
+                #adiciona o novo valor na coluna
                 if type(valor) != list:
                     self.__dados[f'{chave}'.lower()].append(valor)
+                #adiciona os novos valores na coluna
                 else:
                     self.__dados[f'{chave}'.lower()] = self.__dados[f'{chave}'.lower()] + valor
+                    #atualiza a quantidade de linhas adicionadas
                     if linhas_adicionadas < len(valor):
                         linhas_adicionadas = len(valor)
 
+            #atualiza com a maior quantidade de linhas adicionadas
             self.__quantidade_linhas += linhas_adicionadas
 
+            #correção da quantidade de linhas em todas colunas
             for chave, valor in self.__dados.items():
                 if len(valor) != self.__quantidade_linhas:
                     self.__dados[chave].append(None)
         else:
             m = 'Dict vazio' if dados == {} else f"{dados} Não pertence ao tipo Dict"
             raise ValueError(m)
+
+    def __str__(self):
+        #cantabiliza a quantidade de caracteres maxima usada nas colunas
+        max_t=0
+        for coluna in self.__colunas:
+            max_t= len(coluna) if len(coluna)>max_t else max_t
+
+        #verifica se a quantidade maxima de caracteres será suficiente
+        #para a quantidade de linhas
+        if len(str(self.linhas)) > max_t:
+            max_t= len(str(self.linhas))
+        else:
+            max_t+=4
+
+        r="-"*(max_t*(len(self.colunas)+1)+(len(self.colunas)+1)+1)
+        #variavel de retorno
+        r+="\n|"
+        r+=' '*max_t
+
+        #nomeia todas colunas
+        for coluna in self.__colunas:
+            r+=f"|{coluna: ^{max_t}}"
+        r+="|\n"
+
+        #escreve cada linha
+        for i in range(self.linhas):
+            #numero da linha
+            r+=f"|{i: ^{max_t}}|"
+
+            #dados de cada linha
+            for coluna in self.__colunas:
+                temp=f"{self.dados[coluna][i]}"
+                if len(temp) > max_t:
+                    temp=temp[:max_t-3]+"..."
+                r+=f"{temp: ^{max_t}}|"
+
+            r+="\n"
+        return r
+
 
 if __name__ == '__main__':
     dados1 = BaseDados({"nome": 'Hilster', 'IDAde': 21})
@@ -184,3 +219,6 @@ if __name__ == '__main__':
     print(dados3[0])
     print(len(dados3))
     print(dados3.shape)
+    print(dados3)
+    dados3.remover_coluna('nome')
+    print(dados3)
